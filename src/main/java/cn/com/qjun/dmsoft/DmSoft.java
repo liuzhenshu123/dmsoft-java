@@ -1,4 +1,4 @@
-package cn.com.qjun.dmsoft.plugin;
+package cn.com.qjun.dmsoft;
 
 import cn.com.qjun.dmsoft.utils.RuntimeUtils;
 import com.jacob.activeX.ActiveXComponent;
@@ -30,6 +30,8 @@ public class DmSoft {
     private final ThreadLocal<ActiveXComponent> componentThreadLocal;
     private final BasicOperations basicOperations;
     private final WindowOperations windowOperations;
+    private final ColourOperations colourOperations;
+    private final BackgroundOperations backgroundOperations;
 
     static {
         try {
@@ -52,6 +54,8 @@ public class DmSoft {
     public DmSoft(String regCode, String addCode, String workDir) {
         basicOperations = new BasicOperations(this);
         windowOperations = new WindowOperations(this);
+        colourOperations = new ColourOperations(this);
+        backgroundOperations = new BackgroundOperations(this);
         componentThreadLocal = ThreadLocal.withInitial(() -> {
             ComThread.InitMTA();
             ActiveXComponent dmSoft = new ActiveXComponent("dm.dmsoft");
@@ -85,6 +89,14 @@ public class DmSoft {
 
     public WindowOperations opsForWindow() {
         return this.windowOperations;
+    }
+
+    public BackgroundOperations opsForBackground() {
+        return this.backgroundOperations;
+    }
+
+    public ColourOperations opsForColour() {
+        return this.colourOperations;
     }
 
     /**

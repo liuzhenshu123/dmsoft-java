@@ -1,4 +1,4 @@
-package cn.com.qjun.dmsoft.plugin;
+package cn.com.qjun.dmsoft;
 
 import cn.com.qjun.dmsoft.common.*;
 import cn.com.qjun.dmsoft.enums.FindDirection;
@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
  * @date 2024/2/11
  */
 @RequiredArgsConstructor
-public class ColourOptions {
-    private DmSoft dmSoft;
+public class ColourOperations {
+    private final DmSoft dmSoft;
 
     /**
      * 对指定的数据地址和长度，组合成新的参数. FindPicMem FindPicMemE 以及FindPicMemEx专用

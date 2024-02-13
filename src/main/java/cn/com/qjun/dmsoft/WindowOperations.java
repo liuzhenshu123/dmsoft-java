@@ -1,4 +1,4 @@
-package cn.com.qjun.dmsoft.plugin;
+package cn.com.qjun.dmsoft;
 
 import cn.com.qjun.dmsoft.common.Point;
 import cn.com.qjun.dmsoft.common.ProcessInfo;
