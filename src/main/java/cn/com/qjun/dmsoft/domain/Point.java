@@ -1,4 +1,4 @@
-package cn.com.qjun.dmsoft.common;
+package cn.com.qjun.dmsoft.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

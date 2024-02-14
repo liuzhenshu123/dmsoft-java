@@ -1,9 +1,9 @@
 package cn.com.qjun.dmsoft;
 
-import cn.com.qjun.dmsoft.common.Point;
-import cn.com.qjun.dmsoft.common.ProcessInfo;
-import cn.com.qjun.dmsoft.common.Rect;
-import cn.com.qjun.dmsoft.common.Size;
+import cn.com.qjun.dmsoft.domain.Point;
+import cn.com.qjun.dmsoft.domain.ProcessInfo;
+import cn.com.qjun.dmsoft.domain.Rect;
+import cn.com.qjun.dmsoft.domain.Size;
 import cn.com.qjun.dmsoft.enums.GetWindowFlag;
 import cn.com.qjun.dmsoft.enums.GetWindowStateFlag;
 import cn.com.qjun.dmsoft.enums.WindowFilter;

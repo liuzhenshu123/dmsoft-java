@@ -167,6 +167,28 @@ public class DmSoft {
     }
 
     /**
+     * 调用大漠接口，返回双精度浮点数
+     *
+     * @param method 方法名
+     * @param args   参数
+     * @return 返回的双精度浮点数
+     */
+    double callForDouble(String method, Object... args) {
+        return Dispatch.call(component(), method, args).getDouble();
+    }
+
+    /**
+     * 调用大漠解耦，返回单精度浮点数
+     *
+     * @param method 方法名
+     * @param args   参数
+     * @return 返回的单精度浮点数
+     */
+    float callForFloat(String method, Object... args) {
+        return Dispatch.call(component(), method, args).getFloat();
+    }
+
+    /**
      * 调用大漠接口，并检查返回值是否等于1，不等于1则抛出异常
      *
      * @param method 方法名

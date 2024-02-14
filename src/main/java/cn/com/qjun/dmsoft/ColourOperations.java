@@ -1,6 +1,6 @@
 package cn.com.qjun.dmsoft;
 
-import cn.com.qjun.dmsoft.common.*;
+import cn.com.qjun.dmsoft.domain.*;
 import cn.com.qjun.dmsoft.enums.FindDirection;
 import com.jacob.com.Variant;
 import lombok.RequiredArgsConstructor;

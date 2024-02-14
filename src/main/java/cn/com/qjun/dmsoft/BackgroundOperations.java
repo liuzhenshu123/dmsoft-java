@@ -1,6 +1,6 @@
 package cn.com.qjun.dmsoft;
 
-import cn.com.qjun.dmsoft.common.Rect;
+import cn.com.qjun.dmsoft.domain.Rect;
 import cn.com.qjun.dmsoft.enums.DisplayMode;
 import cn.com.qjun.dmsoft.enums.KeypadMode;
 import cn.com.qjun.dmsoft.enums.MouseMode;
