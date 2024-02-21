@@ -26,12 +26,20 @@ import java.util.stream.Stream;
  * @date 2024/2/11
  */
 @Slf4j
-public class DmSoft {
+public class DmSoft implements AutoCloseable {
     private final ThreadLocal<ActiveXComponent> componentThreadLocal;
-    private final BasicOperations basicOperations;
-    private final WindowOperations windowOperations;
-    private final ColourOperations colourOperations;
+
+    private final AiOperations aiOperations;
     private final BackgroundOperations backgroundOperations;
+    private final BasicOperations basicOperations;
+    private final ColourOperations colourOperations;
+    private final FileOperations fileOperations;
+    private final InputOperations inputOperations;
+    private final MemoryOperations memoryOperations;
+    private final OcrOperations ocrOperations;
+    private final OtherOperations otherOperations;
+    private final SystemOperations systemOperations;
+    private final WindowOperations windowOperations;
 
     static {
         try {
@@ -51,52 +59,93 @@ public class DmSoft {
         }
     }
 
-    public DmSoft(String regCode, String addCode, String workDir) {
-        basicOperations = new BasicOperations(this);
-        windowOperations = new WindowOperations(this);
-        colourOperations = new ColourOperations(this);
+    public DmSoft(DmOptions options) {
+        aiOperations = new AiOperations(this);
         backgroundOperations = new BackgroundOperations(this);
+        basicOperations = new BasicOperations(this);
+        colourOperations = new ColourOperations(this);
+        fileOperations = new FileOperations(this);
+        inputOperations = new InputOperations(this);
+        memoryOperations = new MemoryOperations(this);
+        ocrOperations = new OcrOperations(this);
+        otherOperations = new OtherOperations(this);
+        systemOperations = new SystemOperations(this);
+        windowOperations = new WindowOperations(this);
         componentThreadLocal = ThreadLocal.withInitial(() -> {
             ComThread.InitMTA();
             ActiveXComponent dmSoft = new ActiveXComponent("dm.dmsoft");
-//            JacobUtils.callAndCheckResultEq1(dmSoft, "SetShowErrorMsg", 0);
             log.info("Init DmSoft success.");
             return dmSoft;
         });
         String version = opsForBasic().ver();
         log.info("大漠插件版本: {}", version);
-        opsForBasic().reg(regCode, addCode);
-        opsForBasic().setPath(workDir);
+        opsForBasic().reg(options.getRegCode(), options.getAddCode());
+        opsForBasic().setPath(options.getWorkDir());
 
-//        // 加载AI
-//        JacobUtils.callAndCheckResultEq1(component(), "LoadAi", "modules\\ai.module");
-//        log.info("LoadAi");
-//        JacobUtils.callAndCheckResultEq1(component(), "AiYoloSetVersion", "v5-7.0");
-//        log.info("AiYoloSetVersion");
-//        JacobUtils.callAndCheckResultEq1(component(), "AiYoloSetModel", 0, "modules\\MirM.dmx", "123");
-//        log.info("AiYoloSetModel");
-//        JacobUtils.callAndCheckResultEq1(component(), "AiYoloUseModel", 0);
-//        log.info("AiYoloUseModel");
+        // 设置图片密码
+        if (options.getPicPwd() != null) {
+            opsForColour().setPicPwd(options.getPicPwd());
+        }
 
-        // 加载字库
-//        JacobUtils.callAndCheckResultEq1(component(), "SetDict", DICT_INDEX_DIGITS, "resources\\dict\\digits.txt");
-//        JacobUtils.callAndCheckResultEq1(component(), "SetDict", DICT_INDEX_HANZI, "resources\\dict\\hanzi.txt");
+        // 设置字库
+        if (options.getDictPwd() != null) {
+            opsForOcr().setDictPwd(options.getDictPwd());
+        }
+        if (options.getDicts() != null) {
+            options.getDicts().forEach((index, file) -> opsForOcr().setDict(index, file));
+            opsForOcr().enableShareDict(true);
+        }
+
+        // 设置AI模块
+        if (options.isLoadAi()) {
+            opsForAi().loadAi("modules\\ai.module");
+            opsForAi().aiYoloSetVersion("v5-7.0");
+            options.getAiModels().forEach((index, aiModel) -> opsForAi().aiYoloSetModel(index, aiModel.getFile(), aiModel.getPwd()));
+        }
     }
 
-    public BasicOperations opsForBasic() {
-        return this.basicOperations;
-    }
-
-    public WindowOperations opsForWindow() {
-        return this.windowOperations;
+    public AiOperations opsForAi() {
+        return this.aiOperations;
     }
 
     public BackgroundOperations opsForBackground() {
         return this.backgroundOperations;
     }
 
+    public BasicOperations opsForBasic() {
+        return this.basicOperations;
+    }
+
     public ColourOperations opsForColour() {
         return this.colourOperations;
+    }
+
+    public FileOperations opsForFile() {
+        return this.fileOperations;
+    }
+
+    public InputOperations opsForInput() {
+        return this.inputOperations;
+    }
+
+    public MemoryOperations opsForMemory() {
+        return this.memoryOperations;
+    }
+
+    public OcrOperations opsForOcr() {
+        return this.ocrOperations;
+    }
+
+    public OtherOperations opsForOthers() {
+        return this.otherOperations;
+    }
+
+    public SystemOperations opsForSystem() {
+        return this.systemOperations;
+    }
+
+    public WindowOperations opsForWindow() {
+        return this.windowOperations;
     }
 
     /**
@@ -208,6 +257,15 @@ public class DmSoft {
      */
     private ActiveXComponent component() {
         return componentThreadLocal.get();
+    }
+
+    @Override
+    public void close() throws Exception {
+        opsForOthers().releaseRef();
+        component().safeRelease();
+        ComThread.Release();
+        componentThreadLocal.remove();
+        log.info("+++++++ DmSoft Close.");
     }
 
     private interface DmReg extends Library {

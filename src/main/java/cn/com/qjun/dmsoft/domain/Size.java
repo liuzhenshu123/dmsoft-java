@@ -25,4 +25,9 @@ public class Size {
     public static Size of(int width, int height) {
         return new Size(width, height);
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%dx%d)", width, height);
+    }
 }

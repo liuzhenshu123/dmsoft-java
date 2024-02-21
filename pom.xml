@@ -14,6 +14,30 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>qjun-snapshots</id>
+            <url>https://repository.qjun.com.cn:17443/repository/maven-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </snapshotRepository>
+        <repository>
+            <id>qjun-releases</id>
+            <url>https://repository.qjun.com.cn:17443/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
@@ -65,12 +89,97 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>3.12.1</version>
                 <configuration>
+                    <encoding>UTF-8</encoding>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/resources/assembly/with-local-libs.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- 指定在打包节点执行jar包合并操作 -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-install-plugin</artifactId>-->
+<!--                <version>3.1.1</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>install</id>-->
+<!--                        <goals>-->
+<!--                            <goal>install</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>none</phase>-->
+<!--                        <configuration>-->
+<!--                            <skip>true</skip>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>install-file</id>-->
+<!--                        <goals>-->
+<!--                            <goal>install-file</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>install</phase>-->
+<!--                        <configuration>-->
+<!--                            <file>${project.build.directory}/${project.build.finalName}-with-local-libs.jar</file>-->
+<!--                            <pomFile>src/main/resources/deploy-pom.xml</pomFile>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-deploy-plugin</artifactId>-->
+<!--                <version>3.1.1</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>deploy-file</id>-->
+<!--                        <goals>-->
+<!--                            <goal>deploy-file</goal>-->
+<!--                        </goals>-->
+<!--                        &lt;!&ndash; 跳过默认的发布包 &ndash;&gt;-->
+<!--                        <phase>deploy</phase>-->
+<!--                        <configuration>-->
+<!--                            &lt;!&ndash; deploy配置，指定将哪个目录下的jar包发布为这个工程的jar &ndash;&gt;-->
+<!--                            <file>${project.build.directory}/${project.build.finalName}-with-local-libs.jar</file>-->
+<!--                            &lt;!&ndash;-->
+<!--                            deploy配置，指定将deploy的jar打包使用的pom.xml文件，-->
+<!--                            即其他依赖这个jar包的工程按照哪个pom.xml文件来解析依赖-->
+<!--                            &ndash;&gt;-->
+<!--                            <pomFile>src/main/resources/deploy-pom.xml</pomFile>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

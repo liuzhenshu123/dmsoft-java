@@ -25,4 +25,9 @@ public class Point {
     public static Point of(int x, int y) {
         return new Point(x, y);
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%d,%d)", x, y);
+    }
 }

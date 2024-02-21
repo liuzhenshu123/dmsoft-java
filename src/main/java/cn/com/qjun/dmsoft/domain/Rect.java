@@ -93,4 +93,9 @@ public class Rect {
     public Size getSize() {
         return Size.of(width, height);
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%d,%d,%d,%d)", getX1(), getY1(), getX2(), getY2());
+    }
 }
