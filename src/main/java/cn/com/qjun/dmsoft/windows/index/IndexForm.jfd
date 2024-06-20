@@ -1,0 +1,146 @@
+JFDML JFormDesigner: "8.2.3.0.386" Java: "17.0.5" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "hidemode 3"
+			"$columnConstraints": "[fill][fill][fill][fill][fill][fill]"
+			"$rowConstraints": "[][][][][][][24][][][][][][][][][][][][][][][]"
+		} ) {
+			name: "this"
+			"title": "mh脚本"
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "window_hand_bind"
+				"text": "手动绑定窗口"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "window_hand_bind", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "window_id_text"
+				"minimumSize": new java.awt.Dimension( 100, 30 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 0"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "window_name"
+				"minimumSize": new java.awt.Dimension( 150, 30 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 0"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "window_bind"
+				"text": "绑定窗口"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "window_binding", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 0"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "mouse_to_redheart"
+				"text": "鼠标移到红心"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mouse_to_redheart", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "mh_click_home"
+				"text": "点击主页"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mh_click_home", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 1"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "un_bind_windows"
+				"text": "解除绑定"
+				"background": sfield java.awt.Color yellow
+				"foreground": sfield java.awt.Color red
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "un_bind_windows", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 3 1"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "mouse_to_junjun"
+				"text": "鼠标移到名称"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mouse_to_junjun", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "click_fengyao_home"
+				"text": "点击封妖"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "click_fengyao_home", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 2"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "re_all_ten_sec"
+				"text": "10秒重复操作"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "re_all_ten_sec", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 3"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "click_start_fengyao"
+				"text": "开始封妖"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "click_start_fengyao", true ) )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 3"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "checkBoxMenuItem4"
+				"text": "text"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 4"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "checkBoxMenuItem10"
+				"text": "text"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 4"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "checkBoxMenuItem5"
+				"text": "text"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 5"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "checkBoxMenuItem6"
+				"text": "text"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 5"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "checkBoxMenuItem9"
+				"text": "text"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 6"
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "checkBoxMenuItem8"
+				"text": "text"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 7"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu1"
+					"text": "基本信息"
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu2"
+					"text": "功能"
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu3"
+					"text": "更新"
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 110, 0 )
+			"size": new java.awt.Dimension( 500, 655 )
+		} )
+	}
+}

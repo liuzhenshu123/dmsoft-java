@@ -1,4 +1,4 @@
-package cn.com.qjun.dmsoft;
+package cn.com.qjun.dmsoft.operations;
 
 import cn.com.qjun.dmsoft.utils.RuntimeUtils;
 import com.jacob.activeX.ActiveXComponent;
@@ -8,7 +8,6 @@ import com.jacob.com.LibraryLoader;
 import com.jacob.com.Variant;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,8 +24,9 @@ import java.util.stream.Stream;
  * @author RenQiang
  * @date 2024/2/11
  */
-@Slf4j
+//@Slf4j
 public class DmSoft implements AutoCloseable {
+    //    Logger logger =  LoggerFactory.getLogger(DmSoft.class);
     private final ThreadLocal<ActiveXComponent> componentThreadLocal;
 
     private final AiOperations aiOperations;
@@ -43,14 +43,20 @@ public class DmSoft implements AutoCloseable {
 
     static {
         try {
+            //TODO 判断系统环境
+            String systemPath = "win64-x64";
             Path jacobDll = Files.createTempFile("jacob-1.20-x86", ".dll");
+//            Path jacobDll = Files.createTempFile("jacob-1.21-x64", ".dll");
             RuntimeUtils.copyResourceFile("/win32-x86/jacob-1.20-x86.dll", jacobDll);
+//            RuntimeUtils.copyResourceFile("/win64-x64/jacob-1.21-x64.dll", jacobDll);
             System.setProperty(LibraryLoader.JACOB_DLL_PATH, jacobDll.toAbsolutePath().toString());
             LibraryLoader.loadJacobLibrary();
 
             Path dmDll = Files.createTempFile("dm", ".dll");
             RuntimeUtils.copyResourceFile("/win32-x86/dm.dll", dmDll);
+//            RuntimeUtils.copyResourceFile("/win64-x64/dm.dll", dmDll);
             long dmReg = DmReg.INSTANCE.SetDllPathA(dmDll.toAbsolutePath().toString(), 1);
+            DmReg.INSTANCE.SetDllPathA(dmDll.toAbsolutePath().toString(), 0);
             if (dmReg != 1L) {
                 throw new RuntimeException("Load dm.dll failed.");
             }
@@ -74,11 +80,11 @@ public class DmSoft implements AutoCloseable {
         componentThreadLocal = ThreadLocal.withInitial(() -> {
             ComThread.InitMTA();
             ActiveXComponent dmSoft = new ActiveXComponent("dm.dmsoft");
-            log.info("Init DmSoft success.");
+            System.out.println("Init DmSoft success.");
             return dmSoft;
         });
         String version = opsForBasic().ver();
-        log.info("大漠插件版本: {}", version);
+        System.out.println("大漠插件版本: " + version);
         opsForBasic().reg(options.getRegCode(), options.getAddCode());
         opsForBasic().setPath(options.getWorkDir());
 
@@ -92,8 +98,11 @@ public class DmSoft implements AutoCloseable {
             opsForOcr().setDictPwd(options.getDictPwd());
         }
         if (options.getDicts() != null) {
-            options.getDicts().forEach((index, file) -> opsForOcr().setDict(index, file));
-            opsForOcr().enableShareDict(true);
+            options.getDicts().forEach((index, file) -> {
+                opsForOcr().setDict(index, file);
+                System.out.println("添加了字库到插件：" + index + "  file:" + file);
+            });
+            opsForOcr().enableShareDict(false);
         }
 
         // 设置AI模块
@@ -265,7 +274,7 @@ public class DmSoft implements AutoCloseable {
         component().safeRelease();
         ComThread.Release();
         componentThreadLocal.remove();
-        log.info("+++++++ DmSoft Close.");
+        System.out.println("+++++++ DmSoft Close.");
     }
 
     private interface DmReg extends Library {

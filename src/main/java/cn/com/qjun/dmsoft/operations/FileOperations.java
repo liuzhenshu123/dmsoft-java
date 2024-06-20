@@ -1,12 +1,9 @@
-package cn.com.qjun.dmsoft;
+package cn.com.qjun.dmsoft.operations;
 
 import cn.com.qjun.dmsoft.utils.InfoParseUtils;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 文件操作

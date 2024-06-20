@@ -1,7 +1,5 @@
 package cn.com.qjun.dmsoft.utils;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -12,7 +10,7 @@ import java.nio.file.StandardCopyOption;
  * @author RenQiang
  * @date 2023/1/10
  */
-@Slf4j
+//@Slf4j
 public class RuntimeUtils {
 
     /**

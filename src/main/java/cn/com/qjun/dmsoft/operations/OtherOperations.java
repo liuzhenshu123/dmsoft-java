@@ -1,4 +1,4 @@
-package cn.com.qjun.dmsoft;
+package cn.com.qjun.dmsoft.operations;
 
 import lombok.RequiredArgsConstructor;
 

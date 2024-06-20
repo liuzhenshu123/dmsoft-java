@@ -1,4 +1,4 @@
-package cn.com.qjun.dmsoft;
+package cn.com.qjun.dmsoft.operations;
 
 import lombok.*;
 
@@ -62,6 +62,7 @@ public class DmOptions {
         
         public PluginOptionsBuilder(String workDir, String regCode, String addCode) {
             dmOptions = new DmOptions(workDir, regCode, addCode);
+            addDict(0,"E:\\IdeaWorkSpace\\dmsoft-java\\data\\自己的字库.txt");
         }
         
         public PluginOptionsBuilder withPicPwd(String picPwd) {

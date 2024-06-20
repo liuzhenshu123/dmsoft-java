@@ -1,4 +1,4 @@
-package cn.com.qjun.dmsoft;
+package cn.com.qjun.dmsoft.operations;
 
 import cn.com.qjun.dmsoft.domain.Rect;
 import cn.com.qjun.dmsoft.enums.DisplayMode;

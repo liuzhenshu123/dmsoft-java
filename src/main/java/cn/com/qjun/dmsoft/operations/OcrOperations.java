@@ -1,4 +1,4 @@
-package cn.com.qjun.dmsoft;
+package cn.com.qjun.dmsoft.operations;
 
 import cn.com.qjun.dmsoft.domain.*;
 import cn.com.qjun.dmsoft.utils.InfoParseUtils;
@@ -90,9 +90,15 @@ public class OcrOperations {
      * @return 找到的字符串索引和对应位置，没找到返回null
      */
     public FindResult findStr(Rect rect, List<String> keywords, String colorFormat, double sim) {
-        Variant[] variants = new Variant[]{new Variant(rect.getX1()), new Variant(rect.getY1()), new Variant(rect.getX2()), new Variant(rect.getY2()),
-                new Variant(String.join("|", keywords)), new Variant(colorFormat), new Variant(sim),
-                new Variant(0, true), new Variant(0, true)};
+        Variant[] variants = new Variant[]{new Variant(rect.getX1()),
+                new Variant(rect.getY1()),
+                new Variant(rect.getX2()),
+                new Variant(rect.getY2()),
+                new Variant(String.join("|", keywords)),
+                new Variant(colorFormat),
+                new Variant(sim),
+                new Variant(0, true),
+                new Variant(0, true)};
         long result = dmSoft.callForLong("FindStr", (Object[]) variants);
         if (result == -1) {
             return null;
